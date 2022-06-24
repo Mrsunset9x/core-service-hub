@@ -2,43 +2,60 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-
-class User extends Authenticatable
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Auth\User as Authenticate;
+/**
+ * Class User
+ * @package App\Models
+ * @version June 24, 2022, 4:49 am UTC
+ *
+ */
+class User extends Authenticate
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use SoftDeletes, HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
+    protected $connection = 'mysql';
+
+    public $table = 'users';
+    
+
+    protected $dates = ['deleted_at'];
+
+
+
+    public $fillable = [
         'name',
         'email',
-        'password',
+        'password'
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * The attributes that should be casted to native types.
      *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
+     * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        
     ];
+
+    /**
+     * Validation rules
+     *
+     * @var array
+     */
+    public static $rules = [
+        
+    ];
+
+    public function password(): Attribute
+    {
+        return Attribute::make(
+            get: fn($val) => $val,
+            set: fn($val) => $val
+        );
+    }
 }

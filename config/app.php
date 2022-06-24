@@ -196,7 +196,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Modules\ServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
-        Yajra\DataTables\DataTablesServiceProvider::class,
+        App\Providers\TenancyServiceProvider::class
 
     ],
 

@@ -1,8 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Modules\License\Http\Controllers;
-use Modules\License\Http\Controllers\LicenseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +19,11 @@ Route::get('/', function () {
 
 //    $license = new LicenseController();
 //    return $license->index();
-    return view('welcome');
+    return redirect()->route('home');
+
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('users', App\Http\Controllers\UserController::class);
